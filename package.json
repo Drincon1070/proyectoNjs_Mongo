@@ -1,0 +1,17 @@
+{
+  "name": "proyectonjs_mongo",
+  "version": "1.0.0",
+  "description": "poryecto Mision tic njs express y mongo DB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1", 
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "Daniel Rincon",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.6.5"
+  }
+}
