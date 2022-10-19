@@ -1,3 +1,4 @@
+const e = require("express");
 const Vehiculo = require("../models/Vehiculos"); 
 
 //Insertar
@@ -37,8 +38,33 @@ const vehiculoXid = async (req, res) => {
     }
 }
 
+//ACTUALIZAR 
+const vehiculoEdit = async (req, res) => {
+    try {
+        const id = req.params.id; 
+        const vehiculo = req.body;
+        await Vehiculo.findByIdAndUpdate(id, vehiculo); 
+        res.send("Vehiculo Actualizado correctamente"); 
+    } catch (error) {
+        console.log(error); 
+    }
+}
+
+//ELIMINAR
+const vehiculoDelete = async (req, res) =>{
+    try {
+        const id = req.params.id; 
+        await Vehiculo.findByIdAndDelete(id);
+        res.send("Vehiculo fue eliminado correctamente");
+    } catch (error) {
+        console.log(error); 
+    }
+}
+
 module.exports = {
     vehiculoSave, 
     vehiculosList,
-    vehiculoXid
+    vehiculoXid,
+    vehiculoEdit,
+    vehiculoDelete
 }
