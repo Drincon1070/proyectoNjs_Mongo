@@ -1,20 +1,19 @@
-const app = require("./app"); 
+const app = require("./app");
 var port = 4000; 
-const mongo = require("./database"); 
-const rutasVehiculos = require("./src/routers/Vehiculos.routes");
-const rutasUsuarios = require("./src/routers/Usuarios.routes");
-const cors = require("cors"); 
+var mongoose = require('./database'); 
+var usuarioRouter = require("./src/routers/usuarios.routes"); 
+var vehiculoRouter = require("./src/routers/vehiculos.routes"); 
+var cors = require("cors"); 
 
-app.use(cors); 
+app.use(cors());
 
 app.listen(port, ()=>{
-    console.log("Servidor activo en: "+port); 
-});
+    console.log("Servidor en el puerto "+port); 
+}); 
 
-app.get("/", (req, res)=>{
-    res.send("API en operando correctamente!!"); 
-});
+app.use("/usuarios", usuarioRouter); 
+app.use("/vehiculos", vehiculoRouter);
 
-//CONFIGURACION DE RUTAS
-app.use("/vehiculos", rutasVehiculos); 
-app.use("/usuarios", rutasUsuarios); 
+app.get("/", (req, res) => {
+    res.send("Api Funcionando"); 
+})
