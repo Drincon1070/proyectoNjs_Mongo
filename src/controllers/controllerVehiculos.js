@@ -77,7 +77,25 @@ const vehiculoEdit = async (req, res) => {
         const id = req.params.id; 
         const vehiculo = req.body;
         await Vehiculo.findByIdAndUpdate(id, vehiculo); 
-        res.send("Vehiculo Actualizado correctamente"); 
+        return res.status(200).json({ mensaje: "Editado correctamente"}); 
+
+        const payload = {
+            vehiculo: { id: vehiculo.id },
+        };
+      
+        jwt.sign(
+            payload,
+            process.env.SECRETA,
+            {
+              expiresIn: 3600, //1 hora
+            },
+            (error, token) => {
+              if (error) throw error;
+      
+              //Mensaje de confirmación
+              res.json({ token });
+            }
+        );
     } catch (error) {
         console.log(error); 
     }
@@ -88,7 +106,25 @@ const vehiculoDelete = async (req, res) =>{
     try {
         const id = req.params.id; 
         await Vehiculo.findByIdAndDelete(id);
-        res.send("Vehiculo fue eliminado correctamente");
+        return res.status(200).json({ mensaje: "Eliminado"}); 
+
+        const payload = {
+            vehiculo: { id: vehiculo.id },
+        };
+      
+        jwt.sign(
+            payload,
+            process.env.SECRETA,
+            {
+              expiresIn: 3600, //1 hora
+            },
+            (error, token) => {
+              if (error) throw error;
+      
+              //Mensaje de confirmación
+              res.json({ token });
+            }
+        );
     } catch (error) {
         console.log(error); 
     }
