@@ -130,10 +130,27 @@ const vehiculoDelete = async (req, res) =>{
     }
 }
 
+const vehiculoXParametro = async (req, res)=>{
+    try {
+        const parametro = req.params.parametro;
+        const vehiculo = await Vehiculo.find({
+            $or: [
+                { placa: { $regex: '.*' + parametro + '.*' }},
+                { marca: { $regex: '.*' + parametro + '.*' } },
+                { modelo: { $regex: '.*' + parametro + '.*' } }
+            ]
+        }); 
+        res.status(200).send(vehiculo);
+    } catch (error) {
+        console.log(error); 
+    }
+}
+
 module.exports = {
     vehiculoSave, 
     vehiculosList,
     vehiculoXid,
     vehiculoEdit,
-    vehiculoDelete
+    vehiculoDelete,
+    vehiculoXParametro
 }

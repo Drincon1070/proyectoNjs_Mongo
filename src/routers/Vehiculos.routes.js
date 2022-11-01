@@ -16,4 +16,6 @@ routerVehiculos.put("/edit/:id", controlVehiculo.vehiculoEdit);
 
 routerVehiculos.delete("/delete/:id", controlVehiculo.vehiculoDelete);
 
+routerVehiculos.get("/list/:parametro", controlVehiculo.vehiculoXParametro);
+
 module.exports = routerVehiculos; 
