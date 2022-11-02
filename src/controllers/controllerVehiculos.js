@@ -135,12 +135,20 @@ const vehiculoXParametro = async (req, res)=>{
         const parametro = req.params.parametro;
         const vehiculo = await Vehiculo.find({
             $or: [
-                { placa: { $regex: '.*' + parametro + '.*' }},
-                { marca: { $regex: '.*' + parametro + '.*' } },
-                { modelo: { $regex: '.*' + parametro + '.*' } }
+                { placa: { $regex: '.*' + parametro + '.*', $options: 'i' }},
+                { marca: { $regex: '.*' + parametro + '.*', $options: 'i' } },
+                { modelo: { $regex: '.*' + parametro + '.*', $options: 'i' } }
             ]
-        }); 
-        res.status(200).send(vehiculo);
+        });
+        
+        const nVehiculos = vehiculo.length;  
+
+        if(nVehiculos > 0){
+            res.status(200).send(vehiculo);
+        }
+        else {
+            return res.status(400).json({mensaje: "sin registros"}); 
+        }     
     } catch (error) {
         console.log(error); 
     }
